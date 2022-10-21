@@ -4,7 +4,15 @@ const Schema = mongoose.Schema
 
 const profileSchema = new Schema({
   name: String,
-  photo: String
+  photo: String,
+  wishlists: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Wishlist'
+  }],
+  todoLists: [{
+    type: Schema.Types.ObjectId,
+    ref: 'TodoList'
+  }],
 },{
   timestamps: true,
 })
