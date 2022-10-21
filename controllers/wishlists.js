@@ -16,6 +16,18 @@ const create = async (req,res) => {
   }
 }
 
+const index = async (req, res) => {
+  try {
+    const wishlists = await Wishlist.find({})
+      .sort({ name : 'desc'})
+    res.status(200).json(wishlists)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
+  index, 
 }

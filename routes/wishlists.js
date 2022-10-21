@@ -6,6 +6,7 @@ const router = Router()
 
 /*---------- Protected Routes ----------*/
 router.use(decodeUserFromToken)
+router.get('/', checkAuth, wishlistCtrl.index)
 router.post('/', checkAuth, wishlistCtrl.create)
 
 export { router }
