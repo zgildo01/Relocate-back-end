@@ -12,5 +12,6 @@ router.use(decodeUserFromToken)
 router.post('/', checkAuth, todolistCtrl.create)
 router.get('/', checkAuth, todolistCtrl.index)
 router.get('/:id', checkAuth, todolistCtrl.show)
+router.put('/:id', checkAuth, todolistCtrl.update)
 
 export { router }

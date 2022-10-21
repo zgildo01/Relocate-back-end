@@ -34,8 +34,22 @@ const show = async (req, res) => {
   }
 }
 
+const update = async (req, res) => {
+  try {
+    const todolist = await TodoList.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    )
+    res.status(200).json(todolist)
+  } catch (error) {
+    
+  }
+}
+
 export {
   create,
   index,
   show,
+  update,
 }
