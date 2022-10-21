@@ -15,6 +15,17 @@ const create = async (req, res) => {
   }
 }
 
+const index = async (req, res) => {
+  try {
+    const todolists = await TodoList.find({})
+    .sort({ name: 'desc' })
+    res.status(200).json(todolists)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
+  index,
 }
