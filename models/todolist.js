@@ -12,7 +12,7 @@ const todoListItemSchema = new Schema({
     required: true,
   },
 }, {
-  timestamps: true;
+  timestamps: true
 })
 
 const todoListSchema = new Schema({
@@ -30,7 +30,7 @@ const todoListSchema = new Schema({
   },
   todoListItems: [todoListItemSchema]
 }, {
-  timestamps: true;
+  timestamps: true
 })
 
 const TodoList = mongoose.model('TodoList', todoListSchema)
