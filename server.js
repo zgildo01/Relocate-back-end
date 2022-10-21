@@ -7,7 +7,7 @@ import formData from 'express-form-data'
 import { router as profilesRouter } from './routes/profiles.js'
 import { router as authRouter } from './routes/auth.js'
 import { router as todolistsRouter } from './routes/todolists.js'
-import { router as wishlistsRouter } from './routes/wishlists/js'
+import { router as wishlistsRouter } from './routes/wishlists.js'
 
 import './config/database.js'
 
