@@ -25,7 +25,17 @@ const index = async (req, res) => {
   }
 }
 
+const show = async (req, res) => {
+  try {
+    const todolist = await TodoList.findById(req.params.id)
+    res.status(200).json(todolist)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
   index,
+  show,
 }
