@@ -68,6 +68,19 @@ const createItem = async (req, res) => {
   }
 }
 
+const deleteItem = async (req, res) => {
+  try {
+    const todolist = await TodoList.findById(req.url.todolistId)
+    todolist.todoListItems.filter((item) => {
+      return item._id !== req.url.itemId
+    })
+    await todolist.save()
+    res.status(201).json(todolist)
+  } catch (error) {
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
   index,
@@ -75,4 +88,5 @@ export {
   update,
   deleteTodolist as delete,
   createItem,
+  deleteItem,
 }

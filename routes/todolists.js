@@ -15,5 +15,6 @@ router.get('/:id', checkAuth, todolistCtrl.show)
 router.put('/:id', checkAuth, todolistCtrl.update)
 router.delete('/:id', checkAuth, todolistCtrl.delete)
 router.post('/:id/items', checkAuth, todolistCtrl.createItem)
+router.delete('/:todolistId/items/:itemId', checkAuth, todolistCtrl.deleteItem)
 
 export { router }
