@@ -28,13 +28,10 @@ const wishlistItemSchema = new Schema({
     required: true,
   },
   linkToItem: {
-    type: Number,
-    required: true,
-  },
-  photo: {
     type: String,
     required: true,
-  }
+  },
+  photo: String,
 })
 
 const wishlistSchema = new Schema({
