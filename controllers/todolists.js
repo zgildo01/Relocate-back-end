@@ -71,6 +71,7 @@ const createItem = async (req, res) => {
 const deleteItem = async (req, res) => {
   try {
     const todolist = await TodoList.findById(req.url.todolistId)
+    console.log(req.url.todolistId)
     todolist.todoListItems.filter((item) => {
       return item._id !== req.url.itemId
     })
