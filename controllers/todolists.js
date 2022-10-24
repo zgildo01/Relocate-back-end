@@ -61,7 +61,7 @@ const createItem = async (req, res) => {
     const todolist = await TodoList.findById(req.params.id)
     todolist.todoListItems.push(req.body)
     await todolist.save()
-    const newItem = [todolist.todoListItems.length - 1]
+    const newItem = todolist.todoListItems.at(-1)
     res.status(201).json(newItem)
   } catch (error) {
     res.status(500).json(error)
@@ -70,14 +70,12 @@ const createItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const todolist = await TodoList.findById(req.url.todolistId)
-    console.log(req.url.todolistId)
-    todolist.todoListItems.filter((item) => {
-      return item._id !== req.url.itemId
-    })
+    const todolist = await TodoList.findOneAndUpdate(req.params.todolistId)
+    todolist.todoListItems.remove({ _id: req.params.itemId })
     await todolist.save()
-    res.status(201).json(todolist)
+    res.status(200).json(todolist)
   } catch (error) {
+    console.log(error)
     res.status(500).json(error)
   }
 }
