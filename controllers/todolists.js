@@ -80,6 +80,20 @@ const deleteItem = async (req, res) => {
   }
 }
 
+const updateItem = async (req, res) => {
+  try {
+    const todolist = await TodoList.findById(req.params.todolistId)
+    const item = todolist.todoListItems.id(req.params.itemId)
+    item.name = req.body.name
+    item.done = req.body.done
+    await todolist.save()
+    res.status(200).json(todolist)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+}
+
 export {
   create,
   index,
@@ -88,4 +102,5 @@ export {
   deleteTodolist as delete,
   createItem,
   deleteItem,
+  updateItem
 }
