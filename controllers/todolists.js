@@ -17,10 +17,11 @@ const create = async (req, res) => {
 
 const index = async (req, res) => {
   try {
-    const todolists = await TodoList.find({})
-    .sort({ name: 'desc' })
+    const profile = await Profile.findById(req.user.profile).populate('todoLists')
+    let todolists = profile.todoLists
     res.status(200).json(todolists)
   } catch (error) {
+    console.log(error)
     res.status(500).json(error)
   }
 }

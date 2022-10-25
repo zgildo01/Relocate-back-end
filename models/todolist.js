@@ -23,6 +23,7 @@ const todoListSchema = new Schema({
   date: {
     type: Date,
     required: true,
+    default: new Date(),
   },
   details: {
     type: String,
