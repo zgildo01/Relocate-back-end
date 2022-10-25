@@ -18,8 +18,8 @@ const create = async (req,res) => {
 
 const index = async (req, res) => {
   try {
-    const wishlists = await Wishlist.find({})
-      .sort({ name : 'desc'})
+    const profile = await Profile.findById(req.user.profile).populate('wishlists')
+    let wishlists = profile.wishlists
     res.status(200).json(wishlists)
   } catch (error) {
     console.log(error)
