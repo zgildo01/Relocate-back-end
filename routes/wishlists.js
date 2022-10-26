@@ -13,6 +13,6 @@ router.put('/:id', checkAuth, wishlistCtrl.update)
 router.delete('/:id', checkAuth, wishlistCtrl.delete)
 router.post('/:id/items', checkAuth, wishlistCtrl.createItem)
 router.delete('/:wishlistId/items/:itemId', checkAuth, wishlistCtrl.deleteItem)
-router.put('/:wishlistId/items/:itemId', checkAuth, wishlistCtrl.updateItem)
+
 
 export { router }
