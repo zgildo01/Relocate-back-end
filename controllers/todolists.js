@@ -74,7 +74,7 @@ const createItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const todolist = await TodoList.findOneAndUpdate(req.params.todolistId)
+    const todolist = await TodoList.findById(req.params.todolistId)
     todolist.todoListItems.remove({ _id: req.params.itemId })
     await todolist.save()
     res.status(200).json(todolist)
