@@ -78,7 +78,7 @@ const createItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const wishlist = await Wishlist.findOneAndUpdate(req.params.todolistId)
+    const wishlist = await Wishlist.findById(req.params.wishlistId)
     wishlist.wishlistItems.remove({ _id: req.params.itemId })
     await wishlist.save()
     res.status(200).json(wishlist)
