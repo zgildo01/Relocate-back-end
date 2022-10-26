@@ -51,6 +51,9 @@ const update = async (req, res) => {
 const deleteTodolist = async (req, res) => {
   try {
     const todolist = await TodoList.findByIdAndUpdate(req.params.id)
+    const profile = await Profile.findById(req.user.profile)
+    profile.todoLists.remove({_id: req.params.id })
+    await profile.save()
     res.status(200).json(todolist)
   } catch (error) {
     res.status(500).json(error)
