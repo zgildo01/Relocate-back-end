@@ -17,10 +17,11 @@ const create = async (req, res) => {
 
 const index = async (req, res) => {
   try {
-    const todolists = await TodoList.find({})
-    .sort({ name: 'desc' })
+    const profile = await Profile.findById(req.user.profile).populate('todoLists')
+    let todolists = profile.todoLists
     res.status(200).json(todolists)
   } catch (error) {
+    console.log(error)
     res.status(500).json(error)
   }
 }
@@ -50,6 +51,9 @@ const update = async (req, res) => {
 const deleteTodolist = async (req, res) => {
   try {
     const todolist = await TodoList.findByIdAndUpdate(req.params.id)
+    const profile = await Profile.findById(req.user.profile)
+    profile.todoLists.remove({_id: req.params.id })
+    await profile.save()
     res.status(200).json(todolist)
   } catch (error) {
     res.status(500).json(error)
@@ -70,7 +74,7 @@ const createItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const todolist = await TodoList.findOneAndUpdate(req.params.todolistId)
+    const todolist = await TodoList.findById(req.params.todolistId)
     todolist.todoListItems.remove({ _id: req.params.itemId })
     await todolist.save()
     res.status(200).json(todolist)
@@ -84,9 +88,8 @@ const updateItem = async (req, res) => {
   try {
     const todolist = await TodoList.findById(req.params.todolistId)
     const item = todolist.todoListItems.id(req.params.itemId)
-    item.name = req.body.name
-    item.done = req.body.done
-    await todolist.save()
+    item.done = !item.done
+    todolist.save()
     res.status(200).json(todolist)
   } catch (error) {
     console.log(error)
@@ -102,5 +105,5 @@ export {
   deleteTodolist as delete,
   createItem,
   deleteItem,
-  updateItem
+  updateItem,
 }

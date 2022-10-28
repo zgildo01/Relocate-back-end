@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const todoListItemSchema = new Schema({
   done: {
     type: Boolean,
-    required: true,
+    default: false
   },
   name: {
     type: String,
@@ -23,6 +23,7 @@ const todoListSchema = new Schema({
   date: {
     type: Date,
     required: true,
+    default: new Date(),
   },
   details: {
     type: String,

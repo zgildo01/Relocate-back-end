@@ -18,8 +18,8 @@ const create = async (req,res) => {
 
 const index = async (req, res) => {
   try {
-    const wishlists = await Wishlist.find({})
-      .sort({ name : 'desc'})
+    const profile = await Profile.findById(req.user.profile).populate('wishlists')
+    let wishlists = profile.wishlists
     res.status(200).json(wishlists)
   } catch (error) {
     console.log(error)
@@ -78,7 +78,7 @@ const createItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
   try {
-    const wishlist = await Wishlist.findOneAndUpdate(req.params.todolistId)
+    const wishlist = await Wishlist.findById(req.params.wishlistId)
     wishlist.wishlistItems.remove({ _id: req.params.itemId })
     await wishlist.save()
     res.status(200).json(wishlist)
@@ -88,27 +88,7 @@ const deleteItem = async (req, res) => {
   }
 }
 
-const updateItem = async (req, res) => {
-  try {
-    const wishlist = await Wishlist.findById(req.params.wishlistId)
-    console.log(wishlist)
-    const item = wishlist.wishlistItems.id(req.params.itemId)
-    console.log(item)
-    item.purchased = req.body.purchased
-    item.price = req.body.price
-    item.name = req.body.name
-    item.height = req.body.height
-    item.width = req.body.width
-    item.length = req.body.length
-    item.linkToItem = req.body.linkToItem
-    item.photo = req.body.photo
-    await wishlist.save()
-    res.status(200).json(wishlist)
-  } catch (error) {
-    console.log(error)
-    res.status(500).json(error)
-  }
-}
+
 
 export {
   create,
@@ -118,5 +98,4 @@ export {
   deleteWishlist as delete,
   createItem,
   deleteItem,
-  updateItem,
 }

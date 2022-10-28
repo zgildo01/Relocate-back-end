@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 const wishlistItemSchema = new Schema({
   purchased: {
     type: Boolean,
-    required: true,
+    default: false,
   },
   price: {
     type: Number,
